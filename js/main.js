@@ -26,14 +26,33 @@ var mads = function (options) {
   } else if (window.location.hostname.indexOf('localhost') > -1) {
     this.json = '/sample.json';
   } else {
-    this.json = '';
+    this.json = 'sample.json';
   }
 
+  /* fet */
+  if (typeof fet == 'undefined' && typeof rma != 'undefined') {
+    this.fet = rma.customize.fet;
+  } else if (typeof json != 'undefined') {
+    this.fet = fet;
+  } else {
+    this.fet = [];
+  }
+
+  this.fetTracked = false;
+
   /* load json for assets */
-  this.loadJs(this.json, function () {
-    _this.data = json_data;
-    _this.render.render();
-  });
+  if (typeof this.json === 'object') {
+    setTimeout(function () {
+      _this.data = this.json;
+      _this.render.render();
+    }, 600)
+  } else {
+    this.loadJs(this.json, function () {
+      _this.data = json_data;
+      _this.render.render();
+    });
+  }
+
 
   /* Get Tracker */
   if (typeof custTracker === 'undefined' && typeof rma !== 'undefined') {
@@ -133,6 +152,17 @@ mads.prototype.tracker = function (tt, type, name, value) {
    */
   name = name || type;
 
+  if (tt == 'E' && !this.fetTracked) {
+    for (var i = 0; i < this.fet.length; i++) {
+      var t = document.createElement('img');
+      t.src = this.fet[i];
+
+      t.style.display = 'none';
+      this.bodyTag.appendChild(t);
+    }
+    this.fetTracked = true;
+  }
+
   if (typeof this.custTracker !== 'undefined' && this.custTracker !== '' && this.tracked.indexOf(name) === -1) {
     for (var i = 0; i < this.custTracker.length; i++) {
       var img = document.createElement('img');
@@ -203,8 +233,13 @@ var AdUnit = function () {
 
 AdUnit.prototype.render = function () {
   var _this = this;
+  var urluni = this.app.path + 'img/thumb.png'
+  var urlnotion = this.app.path + 'img/thumb_note.gif'
   this.app.contentTag.innerHTML = `
     <div class="adunit-container">
+
+      <div class="first-part">
+      <img src="${urlnotion}" alt="" class="notion" />
       <div class="slides">
         <div class="one"></div>
         <div class="two"></div>
@@ -231,29 +266,73 @@ AdUnit.prototype.render = function () {
       <div class="fourth-text">
         <strong>Siap minum!</strong><br/>
         <span>Ingin mencoba Pureit<br/>di rumah Anda?</span>
-        <div class="button">Ya, Saya Tertarik!</div>
+        <div class="button"></div>
+      </div>
       </div> 
-      <div class="outlay"></div>
+      <div class="form">
+        <div class="main">
+          <img src="${urluni}" alt="" />
+          <div class="box">
+            <form action="#">
+              <h1>GRATIS DEMO<br/>DI RUMAH ANDA</h1> 
+              <input type="text" placeholder="Nama *" required />
+              <input type="text" placeholder="Mobile *" required /> 
+              <input type="email" placeholder="Email *" required />
+              <input type="number" placeholder="Postal Code *" required />
+              <button type="submit" class="submit">SUBMIT</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>`;
 
-  this.app.loadJs(this.app.path + 'js/jquery-3.1.1.slim.min.js', function () {
+  this.app.loadJs(this.app.path + 'js/jquery-3.1.1.min.js', function () {
 
     $('.slides div.one').css({
-      backgroundImage: 'url(' + _this.app.path + 'img/slide1.png'
+      backgroundImage: 'url(' + _this.app.path + 'img/slide1-c.png'
     });
     $('.slides div.two').css({
-      backgroundImage: 'url(' + _this.app.path + 'img/slide2.png'
+      backgroundImage: 'url(' + _this.app.path + 'img/slide2-c.png'
     });
     $('.slides div.three').css({
-      backgroundImage: 'url(' + _this.app.path + 'img/slide3.png'
+      backgroundImage: 'url(' + _this.app.path + 'img/slide3-c.png'
     });
     $('.slides div.four').css({
-      backgroundImage: 'url(' + _this.app.path + 'img/slide4.png'
+      backgroundImage: 'url(' + _this.app.path + 'img/slide4-c.png'
     });
 
     _this.app.loadJs(_this.app.path + 'js/rangeslider.min.js', function () {
 
+      $('.form').find('.submit').on('click', function () {
+        // $('.form').find('form').submit();
+      })
 
+      $('.form').find('form').on('submit', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $('.form input').prop('disabled', true);
+        $('.form').find('.submit').text('Terima kasih');
+      })
+
+      $('.adunit-container').on('touchstart mousedown', function () {
+        $('.notion').css('display', 'none');
+      })
+
+      $('.form').css({
+        backgroundImage: 'url(' + _this.app.path + 'img/lastbg.png)'
+      });
+
+      $('.fourth-text .button').on('click', function () {
+        $('.first-part').fadeOut('slow', function () {
+          $('.form').fadeIn('slow')
+        })
+      })
+
+      var let1 = true
+
+      var let2 = true
+
+      var let3 = true
 
       $slider = $('input[type="range"]').rangeslider({
         polyfill: false,
@@ -263,59 +342,38 @@ AdUnit.prototype.render = function () {
           });
         },
         onSlide: function (position, value) {
-          if ((value / 1000) > 0.6) {
-            var cur = (1000 - value) / 333.333;
-            var old = 1 - cur;
-            $('.slides div.one, div.first-text').css({
-              opacity: old
-            })
-            $('.slides div.two, div.second-text').css({
-              opacity: cur
-            })
-
-            $('.slides div.three, .slides div.four, div.third-text, div.fourth-text').css({
-              opacity: 0
-            })
+          if (position < 200 && let1) {
+            $('.slides div.one').fadeOut('slow');
+            setTimeout(function () {
+              $('.slides div.two').fadeIn('slow', function () {
+                let1 = false
+              })
+            }, 100)
           }
 
-          if ((value / 1000) > 0.3 && (value / 1000) < 0.6) {
-            cur = (1000 - value) / 666.666;
-            old = 1 - cur;
-            $('.slides div.two, div.second-text').css({
-              opacity: old
-            })
-            $('.slides div.three, div.third-text').css({
-              opacity: cur
-            })
-
-            $('.slides div.four, .slides div.one, div.fourth-text').css({
-              opacity: 0
-            })
+          if (position < 80 && let2) {
+            $('.slides div.two').fadeOut('slow');
+            setTimeout(function () {
+              $('.slides div.three').fadeIn('slow', function () {
+                let2 = false
+              })
+            }, 100)
           }
 
-          if ((value / 1000) < 0.4) {
-            cur = (1000 - value) / 1000;
-            old = 1 - cur;
-            $('.slides div.three, div.third-text').css({
-              opacity: old
-            })
-            $('.slides div.four').css({
-              opacity: cur
-            })
-          }
 
-          
         },
-        onSlideEnd: function(position, value) {
-          if (value === 0) {
-            $slider.prop('disabled', true).data('plugin_rangeslider').update(); 
+        onSlideEnd: function (position, value) {
+          if (value <= 20) {
+            $slider.prop('disabled', true).data('plugin_rangeslider').update();
+            $('.slides div.three').fadeOut('slow');
+            setTimeout(function () {
+              $('.slides div.four').fadeIn('slow', function () {
+                $('div.fourth-text').css('opacity', 1).show();
+              })
+            }, 100)
           }
         }
       });
-
-      $slider.on('change', function(i) {
-        console.log(i)
-      })
     });
   });
 }

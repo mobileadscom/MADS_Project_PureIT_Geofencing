@@ -3,6 +3,11 @@
   height: 480px;
   margin: 0;
   padding: 0;
+
+}
+
+.adunit-container {
+    background-color: white;
 }
 
 .adunit-container, .slides, .slides div {
@@ -12,7 +17,7 @@
 }
 
 .slides div.two, .slides div.three, .slides div.four {
-  opacity: 0;
+  display: none;
 }
 
 .adunit-container .slides div {
@@ -49,6 +54,7 @@ div.first-text {
   left: 105px;
   top: 95px;
   font-size: 18px;
+  display: none;
 }
 
 div.second-text {
@@ -66,26 +72,108 @@ div.third-text {
 }
 
 div.fourth-text {
-  left: 105px;
+  left: 85px;
     top: 174px;
     font-size: 22px;
     opacity: 0;
 }
 
+div.fourth-text span, div.fourth-text strong {
+  opacity: 0;
+}
+
 div.fourth-text .button {
-  -webkit-border-radius: 10;
+    -webkit-border-radius: 10;
     -moz-border-radius: 10;
     border-radius: 10px;
     color: #ffffff;
     font-size: 17px;
-    background: #9dc0db;
+    background: transparent;
     padding: 10px 20px;
     text-decoration: none;
     width: 135px;
     position: relative;
-    top: 10px;
+    top: 52px;
+    left: 11px;
+    cursor: pointer;
+    height: 50px;
 }
 
+.form {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 480px;
+    background-repeat: no-repeat;
+  -webkit-background-size: cover;
+   background-size: cover;
+     font-family:'Helvetica Light', 'Helvetica', Arial, sans-serif; 
+
+ }
+
+ .form img {
+width: 110px;
+    position: absolute;
+    top: 21px;
+    left: 99px;
+ }
+
+.box {
+    padding: 10px;
+    position: absolute;
+    background-size: contain;
+    background-color: #3992c8;
+    border-radius: 15px;
+    text-align: center;
+    top: 115px;
+    left: 30px;
+}
+.notion {
+  position: absolute;
+  z-index: 4;
+      top: 125px;
+    left: 49px;
+    pointer-events: none;
+}
+/*.box:before {
+  content: 'x';
+  color: #1fbee3;
+    font-size: 30px;
+    position: absolute;
+    right: 10px;
+    top: -2px;
+    cursor: pointer;
+}*/
+
+.box h1 {
+  font-weight: 1%;
+  color: white;
+  font-size: 20px;
+}
+
+.box input {
+  padding: 5px;
+  margin: 0px 0px 15px;
+  display: block;
+  border-radius: 3px;
+  font-size: 18px;
+  outline: none;
+  border: none;
+}
+
+.submit {
+cursor: pointer;
+    box-sizing: border-box;
+    color: #186a9a;
+    padding: 5px;
+    font-size: 20px;
+    background-color: #eeeeee;
+    margin-bottom: 10px;
+    border: 1px solid #c2c2c2;
+    border-radius: 3px;
+}
 
 .rangeslider,
 .rangeslider__fill {

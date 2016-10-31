@@ -249,9 +249,9 @@ AdUnit.prototype.render = function () {
       <input
         type="range"
         min="0"
-        max="1000"
-        step="2"
-        value="1000"
+        max="1000"               
+        step="2"                
+        value="1000"             
         data-orientation="vertical" />
       <div class="first-text">
         <strong>Lihat kandungan air<br/>Keran rumah anda<br/></strong>
@@ -268,17 +268,17 @@ AdUnit.prototype.render = function () {
         <span>Ingin mencoba Pureit<br/>di rumah Anda?</span>
         <div class="button"></div>
       </div>
-      </div>
+      </div> 
       <div class="form">
         <div class="main">
           <img src="${urluni}" alt="" />
           <div class="box">
             <form action="#">
-              <h1>GRATIS DEMO<br/>DI RUMAH ANDA</h1>
-              <input type="text" placeholder="Nama *" id="form-name" required />
-              <input type="text" placeholder="Mobile *" id="form-mobile" required />
-              <input type="email" placeholder="Email *" id="form-email" required />
-              <input type="number" placeholder="Postal Code *" id="form-postal" required />
+              <h1>GRATIS DEMO<br/>DI RUMAH ANDA</h1> 
+              <input type="text" placeholder="Nama *" class="input_name" required />
+              <input type="text" placeholder="Mobile *" class="input_mobile" required /> 
+              <input type="email" placeholder="Email *" class="input_email" required />
+              <input type="number" placeholder="Postal Code *" class="input_post" required />
               <button type="submit" class="submit">SUBMIT</button>
             </form>
           </div>
@@ -311,6 +311,32 @@ AdUnit.prototype.render = function () {
         e.stopPropagation();
         e.preventDefault();
 
+        var name = $('.form').find('.input_name').val();
+        var mobile = $('.form').find('.input_mobile').val();
+        var email = $('.form').find('.input_email').val();
+        var post = $('.form').find('.input_post').val();
+
+        var userId = 2754;
+        var campaignId = 0;
+        var studioId = 278; //MA IST - 274, MA EXP - 275, MW IST - 278, MW EXP - 279
+        var trackId = 2072; //MA IST - 2070, MA EXP - 2071, MW IST - 2072, MW EXP - 2073
+        var targetEmail = 'dion@mobilewalla.com,adhie@mobileads.com';
+        var data = '[\
+        {%22fieldname%22:%22text_1%22,%22value%22:%22' + name + '%22},\
+        {%22fieldname%22:%22text_2%22,%22value%22:%22' + mobile +  '%22},\
+        {%22fieldname%22:%22text_3%22,%22value%22:%22' + email +  '%22},\
+        {%22fieldname%22:%22text_4%22,%22value%22:%22' + post +  '%22}\
+        ]';
+
+        var url = 'https://www.mobileads.com/api/save_lf?contactEmail=' + targetEmail + '&gotDatas=1&element=' + data + '&user-id=' + userId + '&studio-id=' + studioId + '&tab-id=1&trackid=' + trackId + '&referredURL=Sample%20Ad%20Unit&callback=leadGenCallback';
+        _this.app.loadJs(url)  
+        /* Submit FOrm */
+        _this.app.tracker('E', 'Submit')
+
+        console.log(name + ' ' + mobile + ' ' + email + ' ' + post)
+
+
+
         $('.form input').prop('disabled', true);
         $('.form').find('.submit').text('Terima kasih');
       })
@@ -324,23 +350,26 @@ AdUnit.prototype.render = function () {
       });
 
       $('.fourth-text .button').on('click', function () {
+
+        _this.app.tracker('E', 'Form')
+
         $('.first-part').fadeOut('slow', function () {
-          $('.form').fadeIn('slow');
+          $('.form').fadeIn('slow')
         })
       })
 
-      var let1 = true,
-        let2 = true,
-        let3 = true;
+      var let1 = true
+
+      var let2 = true
+
+      var let3 = true
 
       $slider = $('input[type="range"]').rangeslider({
         polyfill: false,
         onInit: function () {
-          var img = new Image();
-          img.onload = function () {
-            $('.first-part').fadeIn();
-          }
-          img.src = _this.app.path + 'img/slide1-c.png'
+        	var img = new Image();
+					img.onload = function() { $('.first-part').fadeIn(); }
+					img.src = _this.app.path + 'img/slide1-c.png'
 
 
           $(this)[0].$handle.css({
@@ -352,18 +381,18 @@ AdUnit.prototype.render = function () {
             $('.slides div.one').fadeOut('slow');
             setTimeout(function () {
               $('.slides div.two').fadeIn('slow', function () {
-                let1 = false;
-              });
-            }, 100);
+                let1 = false
+              })
+            }, 100)
           }
 
           if (position < 80 && let2) {
             $('.slides div.two').fadeOut('slow');
             setTimeout(function () {
               $('.slides div.three').fadeIn('slow', function () {
-                let2 = false;
-              });
-            }, 100);
+                let2 = false
+              })
+            }, 100)
           }
 
 
@@ -375,14 +404,19 @@ AdUnit.prototype.render = function () {
             setTimeout(function () {
               $('.slides div.four').fadeIn('slow', function () {
                 $('div.fourth-text').css('opacity', 1).show();
-              });
-            }, 100);
+              })
+            }, 100)
           }
         }
       });
     });
   });
-};
+}
+
+var leadGenCallback  = function () {
+  console.log('submitted')
+  $('.form').find('.submit').prop('disabled', true);
+}
 
 var adUnit = new AdUnit();
 

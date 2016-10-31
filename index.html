@@ -31,7 +31,12 @@
         var getParam = function (p) {
             
             if (typeof params[p] != 'undefined') {
-                return JSON.parse(decodeURIComponent(params[p]));
+                
+                try {
+                    return JSON.parse(decodeURIComponent(params[p]));    
+                } catch (e) {
+                    return decodeURIComponent(params[p]);
+                }
             }
         }
 

@@ -238,7 +238,7 @@ AdUnit.prototype.render = function () {
   this.app.contentTag.innerHTML = `
     <div class="adunit-container">
 
-      <div class="first-part">
+      <div class="first-part" style="display:none;">
       <img src="${urlnotion}" alt="" class="notion" />
       <div class="slides">
         <div class="one"></div>
@@ -249,9 +249,9 @@ AdUnit.prototype.render = function () {
       <input
         type="range"
         min="0"
-        max="1000"               
-        step="2"                
-        value="1000"             
+        max="1000"
+        step="2"
+        value="1000"
         data-orientation="vertical" />
       <div class="first-text">
         <strong>Lihat kandungan air<br/>Keran rumah anda<br/></strong>
@@ -268,17 +268,17 @@ AdUnit.prototype.render = function () {
         <span>Ingin mencoba Pureit<br/>di rumah Anda?</span>
         <div class="button"></div>
       </div>
-      </div> 
+      </div>
       <div class="form">
         <div class="main">
           <img src="${urluni}" alt="" />
           <div class="box">
             <form action="#">
-              <h1>GRATIS DEMO<br/>DI RUMAH ANDA</h1> 
-              <input type="text" placeholder="Nama *" required />
-              <input type="text" placeholder="Mobile *" required /> 
-              <input type="email" placeholder="Email *" required />
-              <input type="number" placeholder="Postal Code *" required />
+              <h1>GRATIS DEMO<br/>DI RUMAH ANDA</h1>
+              <input type="text" placeholder="Nama *" id="form-name" required />
+              <input type="text" placeholder="Mobile *" id="form-mobile" required />
+              <input type="email" placeholder="Email *" id="form-email" required />
+              <input type="number" placeholder="Postal Code *" id="form-postal" required />
               <button type="submit" class="submit">SUBMIT</button>
             </form>
           </div>
@@ -289,16 +289,16 @@ AdUnit.prototype.render = function () {
   this.app.loadJs(this.app.path + 'js/jquery-3.1.1.min.js', function () {
 
     $('.slides div.one').css({
-      backgroundImage: 'url(' + _this.app.path + 'img/slide1-c.png'
+      'background-image': 'url(' + _this.app.path + 'img/slide1-c.png)'
     });
     $('.slides div.two').css({
-      backgroundImage: 'url(' + _this.app.path + 'img/slide2-c.png'
+      'background-image': 'url(' + _this.app.path + 'img/slide2-c.png)'
     });
     $('.slides div.three').css({
-      backgroundImage: 'url(' + _this.app.path + 'img/slide3-c.png'
+      'background-image': 'url(' + _this.app.path + 'img/slide3-c.png)'
     });
     $('.slides div.four').css({
-      backgroundImage: 'url(' + _this.app.path + 'img/slide4-c.png'
+      'background-image': 'url(' + _this.app.path + 'img/slide4-c.png)'
     });
 
     _this.app.loadJs(_this.app.path + 'js/rangeslider.min.js', function () {
@@ -310,6 +310,7 @@ AdUnit.prototype.render = function () {
       $('.form').find('form').on('submit', function (e) {
         e.stopPropagation();
         e.preventDefault();
+
         $('.form input').prop('disabled', true);
         $('.form').find('.submit').text('Terima kasih');
       })
@@ -319,26 +320,31 @@ AdUnit.prototype.render = function () {
       })
 
       $('.form').css({
-        backgroundImage: 'url(' + _this.app.path + 'img/lastbg.png)'
+        'background-image': 'url(' + _this.app.path + 'img/lastbg.png)'
       });
 
       $('.fourth-text .button').on('click', function () {
         $('.first-part').fadeOut('slow', function () {
-          $('.form').fadeIn('slow')
+          $('.form').fadeIn('slow');
         })
       })
 
-      var let1 = true
-
-      var let2 = true
-
-      var let3 = true
+      var let1 = true,
+        let2 = true,
+        let3 = true;
 
       $slider = $('input[type="range"]').rangeslider({
         polyfill: false,
         onInit: function () {
+          var img = new Image();
+          img.onload = function () {
+            $('.first-part').fadeIn();
+          }
+          img.src = _this.app.path + 'img/slide1-c.png'
+
+
           $(this)[0].$handle.css({
-            backgroundImage: 'url(' + _this.app.path + 'img/thumb.png)'
+            'background-image': 'url(' + _this.app.path + 'img/thumb.png)'
           });
         },
         onSlide: function (position, value) {
@@ -346,18 +352,18 @@ AdUnit.prototype.render = function () {
             $('.slides div.one').fadeOut('slow');
             setTimeout(function () {
               $('.slides div.two').fadeIn('slow', function () {
-                let1 = false
-              })
-            }, 100)
+                let1 = false;
+              });
+            }, 100);
           }
 
           if (position < 80 && let2) {
             $('.slides div.two').fadeOut('slow');
             setTimeout(function () {
               $('.slides div.three').fadeIn('slow', function () {
-                let2 = false
-              })
-            }, 100)
+                let2 = false;
+              });
+            }, 100);
           }
 
 
@@ -369,14 +375,14 @@ AdUnit.prototype.render = function () {
             setTimeout(function () {
               $('.slides div.four').fadeIn('slow', function () {
                 $('div.fourth-text').css('opacity', 1).show();
-              })
-            }, 100)
+              });
+            }, 100);
           }
         }
       });
     });
   });
-}
+};
 
 var adUnit = new AdUnit();
 

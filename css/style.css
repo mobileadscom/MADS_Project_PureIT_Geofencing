@@ -128,7 +128,10 @@ width: 110px;
     border-radius: 15px;
     text-align: center;
     top: 115px;
-    left: 30px;
+  width: 215px;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 .notion {
   position: absolute;
@@ -156,11 +159,14 @@ width: 110px;
 .box input {
   padding: 5px;
   margin: 0px 0px 15px;
-  display: block;
+  /* display: block; */
   border-radius: 3px;
   font-size: 18px;
   outline: none;
   border: none;
+  box-sizing: border-box;
+  /* width: 117px; */
+  width: 210px;
 }
 
 .submit {

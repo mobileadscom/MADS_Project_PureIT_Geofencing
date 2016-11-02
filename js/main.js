@@ -19,18 +19,18 @@ var mads = function (options) {
   this.headTag = document.getElementsByTagName('head')[0];
 
   /* json */
-  if (typeof json === 'undefined' && typeof rma !== 'undefined') {
+  if (typeof json === 'undefined' && typeof rma !== 'undefined' && typeof rma.customize.json !== 'undefined') {
     this.json = rma.customize.json;
   } else if (typeof json !== 'undefined') {
     this.json = json;
   } else if (window.location.hostname.indexOf('localhost') > -1) {
     this.json = '/sample.json';
   } else {
-    this.json = 'sample.json';
+    this.json = '';
   }
 
   /* fet */
-  if (typeof fet == 'undefined' && typeof rma != 'undefined') {
+  if (typeof fet == 'undefined' && typeof rma != 'undefined' && typeof rma.customize.fet != 'undefined') {
     this.fet = rma.customize.fet;
   } else if (typeof json != 'undefined') {
     this.fet = fet;
@@ -44,13 +44,16 @@ var mads = function (options) {
   if (typeof this.json === 'object') {
     setTimeout(function () {
       _this.data = this.json;
-      _this.render.render();
+      //_this.render.render();
     }, 600)
-  } else {
+  } else if (typeof this.json != 'undefined') {
     this.loadJs(this.json, function () {
       _this.data = json_data;
-      _this.render.render();
+      //_this.render.render();
     });
+  } else {
+      _this.data = {};
+      //_this.render.render();
   }
 
 
@@ -229,6 +232,8 @@ var AdUnit = function () {
   })
 
   this.app.loadCss(this.app.path + 'css/style.css');
+
+  this.render();
 }
 
 AdUnit.prototype.render = function () {
@@ -318,8 +323,8 @@ AdUnit.prototype.render = function () {
 
         var userId = 2754;
         var campaignId = 0;
-        var studioId = 278; //MA IST - 274, MA EXP - 275, MW IST - 278, MW EXP - 279
-        var trackId = 2072; //MA IST - 2070, MA EXP - 2071, MW IST - 2072, MW EXP - 2073
+        var studioId = 279; //MA IST - 274, MA EXP - 275, MW IST - 278, MW EXP - 279
+        var trackId = 2073; //MA IST - 2070, MA EXP - 2071, MW IST - 2072, MW EXP - 2073
         var targetEmail = 'dion@mobilewalla.com,adhie@mobileads.com';
         var data = '[\
         {%22fieldname%22:%22text_1%22,%22value%22:%22' + name + '%22},\

@@ -250,13 +250,7 @@ AdUnit.prototype.render = function () {
     '<div class="three"></div>' +
     '<div class="four"></div>' +
     '</div>' +
-    '<input' +
-    'type="range"' +
-    'min="0"' +
-    'max="1000"' +
-    'step="2"' +
-    'value="1000"' +
-    'data-orientation="vertical" />' +
+    '<input type="range" min="0" max="1000" step="2" value="1000" data-orientation="vertical" />' +
     '<div class="first-text">' +
     '<strong>Lihat kandungan air<br/>Keran rumah anda<br/></strong>' +
     '<span>Geser ke bawah dan<br/>bersikhan dengan Pureit</span>' +
@@ -319,8 +313,8 @@ AdUnit.prototype.render = function () {
 
         var userId = 2754;
         var campaignId = 0;
-        var studioId = 279; //MA IST - 274, MA EXP - 275, MW IST - 278, MW EXP - 279
-        var trackId = 2073; //MA IST - 2070, MA EXP - 2071, MW IST - 2072, MW EXP - 2073
+        var studioId = 278; //MA IST - 274, MA EXP - 275, MW IST - 278, MW EXP - 279
+        var trackId = 2072; //MA IST - 2070, MA EXP - 2071, MW IST - 2072, MW EXP - 2073
         var targetEmail = 'dion@mobilewalla.com,adhie@mobileads.com';
         var data = '[\
         {%22fieldname%22:%22text_1%22,%22value%22:%22' + name + '%22},\

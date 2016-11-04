@@ -250,13 +250,7 @@ AdUnit.prototype.render = function () {
     '<div class="three"></div>' +
     '<div class="four"></div>' +
     '</div>' +
-    '<input' +
-    'type="range"' +
-    'min="0"' +
-    'max="1000"' +
-    'step="2"' +
-    'value="1000"' +
-    'data-orientation="vertical" />' +
+    '<input type="range" min="0" max="1000" step="2" value="1000" data-orientation="vertical" />' +
     '<div class="first-text">' +
     '<strong>Lihat kandungan air<br/>Keran rumah anda<br/></strong>' +
     '<span>Geser ke bawah dan<br/>bersikhan dengan Pureit</span>' +

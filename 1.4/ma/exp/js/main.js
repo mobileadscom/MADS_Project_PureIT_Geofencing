@@ -319,29 +319,21 @@ AdUnit.prototype.render = function () {
         if (!/\S/.test(name)) {
           nameEl.css('border', '1px solid red');
           return false;
-        } else {
-          nameEl.css('border', '');
         }
 
         if (!/\S/.test(mobile)) {
           mobileEl.css('border', '1px solid red');
           return false;
-        } else {
-          mobileEl.css('border', '');
         }
 
         if (!/\S/.test(email)) {
           emailEl.css('border', '1px solid red');
           return false;
-        } else {
-          emailEl.css('border', '');
         }
 
         if (!/\S/.test(post)) {
           postEl.css('border', '1px solid red');
           return false;
-        } else {
-          postEl.css('border', '');
         }
 
         var userId = 2754;

@@ -306,10 +306,43 @@ AdUnit.prototype.render = function () {
         e.stopPropagation();
         e.preventDefault();
 
-        var name = $('.form').find('.input_name').val();
-        var mobile = $('.form').find('.input_mobile').val();
-        var email = $('.form').find('.input_email').val();
-        var post = $('.form').find('.input_post').val();
+        var nameEl = $('.form').find('.input_name');
+        var mobileEl = $('.form').find('.input_mobile');
+        var emailEl = $('.form').find('.input_email');
+        var postEl = $('.form').find('.input_post');
+
+        var name = nameEl.val();
+        var mobile = mobileEl.val();
+        var email = emailEl.val();
+        var post = postEl.val();
+
+        if (!/\S/.test(name)) {
+          nameEl.css('border', '1px solid red');
+          return false;
+        } else {
+          nameEl.css('border', '');
+        }
+
+        if (!/\S/.test(mobile)) {
+          mobileEl.css('border', '1px solid red');
+          return false;
+        } else {
+          mobileEl.css('border', '');
+        }
+
+        if (!/\S/.test(email)) {
+          emailEl.css('border', '1px solid red');
+          return false;
+        } else {
+          emailEl.css('border', '');
+        }
+
+        if (!/\S/.test(post)) {
+          postEl.css('border', '1px solid red');
+          return false;
+        } else {
+          postEl.css('border', '');
+        }
 
         var userId = 2754;
         var campaignId = 0;

@@ -319,35 +319,27 @@ AdUnit.prototype.render = function () {
         if (!/\S/.test(name)) {
           nameEl.css('border', '1px solid red');
           return false;
-        } else {
-          nameEl.css('border', '');
         }
 
         if (!/\S/.test(mobile)) {
           mobileEl.css('border', '1px solid red');
           return false;
-        } else {
-          mobileEl.css('border', '');
         }
 
         if (!/\S/.test(email)) {
           emailEl.css('border', '1px solid red');
           return false;
-        } else {
-          emailEl.css('border', '');
         }
 
         if (!/\S/.test(post)) {
           postEl.css('border', '1px solid red');
           return false;
-        } else {
-          postEl.css('border', '');
         }
 
         var userId = 2754;
         var campaignId = 0;
-        var studioId = 275; //MA IST - 274, MA EXP - 275, MW IST - 278, MW EXP - 279
-        var trackId = 2071; //MA IST - 2070, MA EXP - 2071, MW IST - 2072, MW EXP - 2073
+        var studioId = 274; //MA IST - 274, MA EXP - 275, MW IST - 278, MW EXP - 279
+        var trackId = 2070; //MA IST - 2070, MA EXP - 2071, MW IST - 2072, MW EXP - 2073
         var targetEmail = 'dion@mobilewalla.com,adhie@mobileads.com';
         var data = '[\
         {%22fieldname%22:%22text_1%22,%22value%22:%22' + name + '%22},\

@@ -250,13 +250,7 @@ AdUnit.prototype.render = function () {
     '<div class="three"></div>' +
     '<div class="four"></div>' +
     '</div>' +
-    '<input' +
-    'type="range"' +
-    'min="0"' +
-    'max="1000"' +
-    'step="2"' +
-    'value="1000"' +
-    'data-orientation="vertical" />' +
+    '<input type="range" min="0" max="1000" step="2" value="1000" data-orientation="vertical" />' +
     '<div class="first-text">' +
     '<strong>Lihat kandungan air<br/>Keran rumah anda<br/></strong>' +
     '<span>Geser ke bawah dan<br/>bersikhan dengan Pureit</span>' +
@@ -279,10 +273,10 @@ AdUnit.prototype.render = function () {
     '<div class="box">' +
     '<form action="#">' +
     '<h1>GRATIS DEMO<br/>DI RUMAH ANDA</h1>' +
-    '<input type="text" placeholder="Nama *" class="input_name" required />' +
-    '<input type="text" placeholder="Mobile *" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="input_mobile" required />' +
-    '<input type="email" placeholder="Email *" class="input_email" required />' +
-    '<input type="text" placeholder="Postal Code *" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="8" class="input_post" required />' +
+    '<input type="text" placeholder="Nama *" class="input_name" />' +
+    '<input type="text" placeholder="Mobile *" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="input_mobile" />' +
+    '<input type="email" placeholder="Email *" class="input_email" />' +
+    '<input type="text" placeholder="Postal Code *" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="8" class="input_post" />' +
     '<button type="submit" class="submit">SUBMIT</button>' +
     '</form>' +
     '</div>' +
@@ -312,10 +306,35 @@ AdUnit.prototype.render = function () {
         e.stopPropagation();
         e.preventDefault();
 
-        var name = $('.form').find('.input_name').val();
-        var mobile = $('.form').find('.input_mobile').val();
-        var email = $('.form').find('.input_email').val();
-        var post = $('.form').find('.input_post').val();
+        var nameEl = $('.form').find('.input_name');
+        var mobileEl = $('.form').find('.input_mobile');
+        var emailEl = $('.form').find('.input_email');
+        var postEl = $('.form').find('.input_post');
+
+        var name = nameEl.val();
+        var mobile = mobileEl.val();
+        var email = emailEl.val();
+        var post = postEl.val();
+
+        if (!/\S/.test(name)) {
+          nameEl.css('border', '1px solid red');
+          return false;
+        }
+
+        if (!/\S/.test(mobile)) {
+          mobileEl.css('border', '1px solid red');
+          return false;
+        }
+
+        if (!/\S/.test(email)) {
+          emailEl.css('border', '1px solid red');
+          return false;
+        }
+
+        if (!/\S/.test(post)) {
+          postEl.css('border', '1px solid red');
+          return false;
+        }
 
         var userId = 2754;
         var campaignId = 0;
